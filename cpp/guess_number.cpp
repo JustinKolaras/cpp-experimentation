@@ -1,5 +1,6 @@
 #include <iostream>
 #include <random>
+#include <cctype>
 
 int random(int start, int end) {
     std::random_device rd;
@@ -58,6 +59,15 @@ int main() {
     else {
         std::cout << "You lose! The number was " << number << ".\n";
     }
+
+    char playAgain;
+
+    std::cout << "Would you like to play again? (Y/n)\n";
+    std::cin >> playAgain;
+
+    if (tolower(playAgain) == 'y') {
+		main();
+	}
 
     return 0;
 }
