@@ -1,6 +1,8 @@
 #include <iostream>
 #include <random>
 #include <cctype>
+#include <ctime>
+#include <string>
 
 int random(int start, int end) {
     std::random_device rd;
@@ -23,7 +25,17 @@ int main() {
     std::cout << "Welcome to guess the number! Please guess a number between 1 and 99.\n";
     std::cout << attemptsRemaining << " attempts remaining.\n";
 
+    // Initialization is needed for the `start` variable as the compiler
+    // thinks it might be impossible due to it's usage in the while loop.
+    time_t start{}, end;
+    bool setTime = false;
+
     while (guess != number && attemptsRemaining > 0) {
+        if (!setTime) {
+            time(&start);
+            setTime = true;
+        }
+
         if (!(std::cin >> guess)) {
             std::cout << "Invalid input. Please enter a valid integer.\n";
             std::cin.clear();
@@ -40,8 +52,8 @@ int main() {
 
         // To stop additional dialogues.
         if (guess == number || attemptsRemaining == 0) {
-			break;
-		}
+            break;
+        }
 
         if (guess > number) {
             std::cout << "Lower.\n";
@@ -50,11 +62,17 @@ int main() {
             std::cout << "Higher.\n";
         }
 
-        std::cout << attemptsRemaining << " attempt(s) remaining.\n";
+        std::string attemptDisplay = (attemptsRemaining == 1) ? "attempt" : "attempts";
+
+        std::cout <<
+            attemptsRemaining << " " << attemptDisplay << " remaining.\n";
     }
 
+    time(&end);
+
     if (guess == number) {
-        std::cout << "Congratulations! You guessed the number!\n";
+        std::cout <<
+            "Congratulations! You guessed the number in " << difftime(end, start) << "s!\n";
     }
     else {
         std::cout << "You lose! The number was " << number << ".\n";
@@ -66,8 +84,8 @@ int main() {
     std::cin >> playAgain;
 
     if (tolower(playAgain) == 'y') {
-		main();
-	}
+        main();
+    }
 
     return 0;
 }
