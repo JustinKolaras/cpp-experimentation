@@ -1,20 +1,9 @@
-#include <iostream>
-#include <random>
 #include <cctype>
 #include <ctime>
+#include <iostream>
 #include <string>
 
-int random(int start, int end) {
-    std::random_device rd;
-    std::mt19937 eng(rd());
-    std::uniform_int_distribution<> distribution(start, end);
-
-    return distribution(eng);
-}
-
-bool inRange(int value, int start, int end) {
-    return value >= start && value <= end;
-}
+#include "util.h"
 
 int main() {
     const int number = random(1, 100);
