@@ -54,7 +54,11 @@ int main() {
         number = random(1, topEnd);
 
         std::cout << "Please guess a number between 1 and " << topEnd << ".\n";
-        std::cout << attemptsRemaining << " attempts remaining.\n";
+
+        std::string attemptDisplay = (attemptsRemaining == 1) ? "attempt" : "attempts";
+
+        std::cout <<
+            attemptsRemaining << " " << attemptDisplay << " remaining.\n";
 
         // Initialization is needed for the start variable as the compiler
         // thinks it might be impossible due to it's usage in the while loop.
