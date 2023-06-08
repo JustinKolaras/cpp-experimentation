@@ -52,6 +52,8 @@ int main() {
         }
 
         number = random(1, topEnd);
+        
+        std::cout << "DEBUG: " << number << "\n";
 
         std::cout << "Please guess a number between 1 and " << topEnd << ".\n";
 
@@ -60,17 +62,10 @@ int main() {
         std::cout <<
             attemptsRemaining << " " << attemptDisplay << " remaining.\n";
 
-        // Initialization is needed for the start variable as the compiler
-        // thinks it might be impossible due to it's usage in the while loop.
-        time_t start{}, end;
-        bool setTime = false;
+        time_t start, end;
+        time(&start);
 
         while (guess != number && attemptsRemaining > 0) {
-            if (!setTime) {
-                time(&start);
-                setTime = true;
-            }
-
             if (!(std::cin >> guess)) {
                 std::cout << "Invalid input. Please enter a valid integer.\n";
                 clearInput();
@@ -104,9 +99,13 @@ int main() {
 
         time(&end);
 
+        int difference = difftime(end, start);
+        int minutes = std::floor(static_cast<double>(difference) / 60);
+        int remaining_seconds = difference % 60;
+
         if (guess == number) {
             std::cout <<
-                "Congratulations! You guessed the number in " << difftime(end, start) << "s!\n";
+                "Congratulations! You guessed the number in " << minutes << "m " << remaining_seconds << "s!\n";
         }
         else {
             std::cout << "You lose! The number was " << number << ".\n";
