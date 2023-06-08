@@ -53,7 +53,7 @@ int main() {
 
         number = random(1, topEnd);
         
-        std::cout << "DEBUG: " << number << "\n";
+        // std::cout << "DEBUG: " << number << "\n";
 
         std::cout << "Please guess a number between 1 and " << topEnd << ".\n";
 
